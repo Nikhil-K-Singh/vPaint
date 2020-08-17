@@ -1,6 +1,8 @@
 """
-
-
+- Opens yor default camera
+- Detects objects with the preset color (can be changed // added  )
+- Draws circles at the center of spotted object
+- Consecutive circles are retained on the screen, thereby creating lines.
 """
 
 import cv2
@@ -50,7 +52,7 @@ myPoints = []       ## [x,y,colorId]
 
 def drawOnCanvas(myPoints,myColorValues):
     for point in myPoints:
-        cv2.circle(img,point[0],point[1],10, myColorValues[point[2]],cv2.FILLED)
+        cv2.circle(img,point[0],point[1],10, myColorValues[point[2]],cv2.FILLED)        # edit the width to change the width of the lines drawn
 
 
 def find_color(img,myColors,myColorValues):
@@ -74,7 +76,7 @@ def getContours(img):
 
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        if area >500:
+        if area >300:
             peri = cv2.arcLength(cnt,True)
             approx = cv2.approxPolyDP(cnt,0.02*peri,True)
             x,y,w,h = cv2.boundingRect(approx)
